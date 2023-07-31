@@ -96,16 +96,12 @@ class Graph{
 	}
 	void print_graph(){
 		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
-		for (Vertex& v : V){
-			v.print_vertex(); 
-			std::cout<<", "; 
-		}
+		for (Vertex& v : V) std::cout<<v.name<<", "; 
 		std::cout<<'\n'; 
-		for (Edge& e : E){
+		for (Edge& e : E) {
 			e.print_edge(); 
-			std::cout<<", "; 		
+			std::cout<<'\n'; 	
 		}
-		std::cout<<'\n'; 
 	}
 }; 
 

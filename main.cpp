@@ -20,16 +20,22 @@ int main(){
 	v2.degree++; 
 
 	v1.print_vertex(); 
+	std::cout<<'\n'; 
 	v2.print_vertex(); 
+	std::cout<<'\n'; 
 	v3.print_vertex(); 
+	std::cout<<'\n'; 
 	
 
 	Edge e1(v1,v2); 
 	Edge e2(v2,v3); 
 	Edge e3(v1,v3); 
 	e1.print_edge(); 
+	std::cout<<'\n'; 
 	e2.print_edge();
+	std::cout<<'\n'; 
 	e3.print_edge(); 
+	std::cout<<'\n'; 
 	
 	std::list<Edge> E; 	
 	E.push_back(e1); 
@@ -37,6 +43,7 @@ int main(){
 	E.push_back(e3); 
 	
 	Graph G(V,E); 
+	G.print_graph(); 
 
 	return 0; 
 }
