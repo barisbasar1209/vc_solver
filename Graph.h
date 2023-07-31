@@ -37,6 +37,24 @@ class Edge{
 	}
 }; 
 
+class Graph{
+	public: 
+		// attributes
+		int n; // number of vertices
+		int m; // number of edges
+		std::list<Vertex> V; 
+		std::list<Edge> E; 
+
+		// constructors
+
+		// assuming that V is nonempty
+		Graph(std::list<Vertex>& V_G, std::list<Edge>& E_G) : V(V_G), E(E_G){
+			n = V_G.size(); 
+			m = E_G.size(); 	
+		}
+
+}; 
+
 void copy_list(std::list<Vertex>& new_list, std::list<Vertex>& old_list){
 	for(Vertex& v : old_list){
 		new_list.push_back(v); 	
