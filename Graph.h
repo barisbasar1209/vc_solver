@@ -1,10 +1,9 @@
 #include<list>
 #include<string>
-#include<iostream> 
-#include"Graph.h"
+#include<iostream>
 
 // TODO: Test
-/*class Vertex{
+class Vertex{
 	public:
 		std::string name=""; 
 		int degree=-1; 
@@ -13,13 +12,28 @@
 		Vertex(std::string v_name, const std::list<Vertex>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
 		//Vertex(const Vertex& v) name(v.name), degree(v.degree), neighbors(v.neighbors){}
 	void print_vertex(){
-		std::cout<<"name: "<<name<<std::endl<<"degree: "<<degree<<std::endl; 
+		std::cout<<"name: "<<name<<'\n'<<"degree: "<<degree<<'\n'; 
 		if (!neighbors.empty()){
 			for (const Vertex& v : neighbors){
 				std::cout<<v.name<<", "; 
 			}	
-			std::cout<<std::endl; 
+			std::cout<<'\n'; 
 		}
+	}
+}; 
+
+// TODO: Test
+class Edge{
+	public: 
+		// attributes
+		Vertex first; 
+		Vertex second; 
+		
+		// constructors
+		Edge(const Vertex& v1, const Vertex& v2) : first(v1), second(v2){}
+		Edge(const Edge& e): first(e.first), second(e.second){}
+	void print_edge(){
+		std::cout<<"Edge: {"<<first.name<<","<<second.name<<"}"<<'\n'; 	
 	}
 }; 
 
@@ -27,31 +41,4 @@ void copy_list(std::list<Vertex>& new_list, std::list<Vertex>& old_list){
 	for(Vertex& v : old_list){
 		new_list.push_back(v); 	
 	}
-}
-*/
-
-int main(){
-	Vertex v1("v1"); 
-	std::list<Vertex> lst; 
-	lst.push_back(v1); 
-	Vertex v2("v2", lst); 
-	v1.neighbors.push_back(v2); 
-	v1.degree++;  
-	lst.push_back(v2); 
-	Vertex v3("v3", lst); 
-	v1.neighbors.push_back(v3); 
-	v2.neighbors.push_back(v3); 
-	v1.degree++; 
-	v2.degree++; 
-	v1.print_vertex(); 
-	v2.print_vertex(); 
-	v3.print_vertex(); 
-
-	Edge e1(v1,v2); 
-	Edge e2(v2,v3); 
-	Edge e3(v1,v3); 
-	e1.print_edge(); 
-	e2.print_edge();
-	e3.print_edge(); 
-	return 0; 
 }
