@@ -20,6 +20,11 @@ class Vertex{
 			std::cout<<'\n'; 
 		}
 	}
+	
+	// compare Vertex objects by their name, assuming that vertices are named uniquely
+	bool operator==(const Vertex& v) const{
+		return name == v.name; 	
+	}
 }; 
 
 // TODO: Test
@@ -32,9 +37,17 @@ class Edge{
 		// constructors
 		Edge(const Vertex& v1, const Vertex& v2) : first(v1), second(v2){}
 		Edge(const Edge& e): first(e.first), second(e.second){}
+	// edges are identical iff both endpoint are identical
+	bool operator==(const Edge& e) const{
+		return first == e.first && second == e.second; 	
+	}
 	void print_edge(){
 		std::cout<<"Edge: {"<<first.name<<","<<second.name<<"}"<<'\n'; 	
 	}
+	bool isEndpoint(Vertex& v){
+		return first == v || second == v; 	
+	}
+	
 }; 
 
 class Graph{
@@ -52,7 +65,34 @@ class Graph{
 			n = V_G.size(); 
 			m = E_G.size(); 	
 		}
+	void delete_edge(Edge& e){
+		Vertex v1(e.first); 
+		Vertex v2(e.second); 
 
+		v1.degree--; 
+		v2.degree--; 
+		v1.neighbors.remove(v2); 
+		v2.neighbors.remove(v1); 
+		E.remove(e); 	
+	}
+
+	void delete_vertex(Vertex& v){
+		// delete vertex itsself
+		V.remove(v); 
+
+		// delete all incident edges
+		for (Edge& e : E){
+			if (e.isEndpoint(v)){
+				delete_edge(e); 	
+			}	
+		}
+
+		// adjust neighborhoods and degrees for adjacent vertices
+		for (Vertex& u : v.neighbors){
+			u.neighbors.remove(v); 
+			u.degree--; 	
+		}
+	}
 }; 
 
 void copy_list(std::list<Vertex>& new_list, std::list<Vertex>& old_list){
