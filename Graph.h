@@ -11,13 +11,14 @@ class Vertex{
 		Vertex(std::string v_name) : name(v_name){degree=0;}   		
 		Vertex(std::string v_name, const std::list<Vertex>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
 		//Vertex(const Vertex& v) name(v.name), degree(v.degree), neighbors(v.neighbors){}
+	// TODO: optional newline
 	void print_vertex(){
 		std::cout<<"name: "<<name<<'\n'<<"degree: "<<degree<<'\n'; 
 		if (!neighbors.empty()){
 			for (const Vertex& v : neighbors){
 				std::cout<<v.name<<", "; 
 			}	
-			std::cout<<'\n'; 
+			//std::cout<<'\n'; 
 		}
 	}
 	
@@ -41,8 +42,9 @@ class Edge{
 	bool operator==(const Edge& e) const{
 		return first == e.first && second == e.second; 	
 	}
+	// TODO: optional newline 
 	void print_edge(){
-		std::cout<<"Edge: {"<<first.name<<","<<second.name<<"}"<<'\n'; 	
+		std::cout<<"Edge: {"<<first.name<<","<<second.name<<"}"; 
 	}
 	bool isEndpoint(Vertex& v){
 		return first == v || second == v; 	
@@ -50,6 +52,7 @@ class Edge{
 	
 }; 
 
+// TODO: Test
 class Graph{
 	public: 
 		// attributes
@@ -79,19 +82,30 @@ class Graph{
 	void delete_vertex(Vertex& v){
 		// delete vertex itsself
 		V.remove(v); 
-
 		// delete all incident edges
 		for (Edge& e : E){
 			if (e.isEndpoint(v)){
 				delete_edge(e); 	
 			}	
 		}
-
 		// adjust neighborhoods and degrees for adjacent vertices
 		for (Vertex& u : v.neighbors){
 			u.neighbors.remove(v); 
 			u.degree--; 	
 		}
+	}
+	void print_graph(){
+		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
+		for (Vertex& v : V){
+			v.print_vertex(); 
+			std::cout<<", "; 
+		}
+		std::cout<<'\n'; 
+		for (Edge& e : E){
+			e.print_edge(); 
+			std::cout<<", "; 		
+		}
+		std::cout<<'\n'; 
 	}
 }; 
 
