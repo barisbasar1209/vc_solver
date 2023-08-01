@@ -12,7 +12,7 @@ bool check_vc(Graph& G, std::list<Vertex*>& S) {
 	bool covered = false; 
 	// check for all edges
 	for (Edge& e : G.E){
-		covered = false
+		covered = false; 
 		// if there exists one vertex in the VC S that covers it
 		for (Vertex *v : S){
 			if (e.isEndpoint(v)){
