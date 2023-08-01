@@ -5,11 +5,11 @@
 
 // TODO: Test
 // checks whether or not S is a valid vertex cover
-bool check_vc(Graph& G, std::list<Vertex>& S) {
+bool check_vc(Graph& G, std::list<Vertex*>& S) {
 	// check for all edges if there is at least one vertex in the vertex cover S that covers it
 	// if one vertex covers the edge proceed with the next edge, otherwise if no vertex covers it S is not a vertex cover
 	for (Edge& e : G.E){
-		for (Vertex& v : S){
+		for (Vertex *v : S){
 			if (e.isEndpoint(v)) break; 
 		}
 		return false; 
@@ -22,12 +22,12 @@ bool check_vc(Graph& G, std::list<Vertex>& S) {
 bool exp_solve(Graph G, int k){
 		// trivial cases
 		if (k<=0) return false; 
-		if (k>(G.n/2)) return true; 
+		//if (k>=(G.n/2)) return true; 
 	
 		// for all subsets with k elements
 		int bitmask = (1 << k) - 1; 
 		while(bitmask < (1 << G.n)){
-			std::list<Vertex> S; 
+			std::list<Vertex*> S; 
 			int count = 0; 
 			auto it = (G.V).begin(); 
 			while(it != (G.V).end()){
@@ -38,7 +38,15 @@ bool exp_solve(Graph G, int k){
 				++it; 
 			}
 			// checking whether or not S is a valid VC in G 
-			if (check_vc(G, S)) return true; 
+			// if (check_vc(G, S)) return true; 
+			if (check_vc(G, S)) {
+					std::cout<<"Vertex cover of size "<<k<<" is S : "; 
+					for (Vertex *v : S){
+						std::cout<<v->name<<","; 	
+					}
+					std::cout<<'\n'; 
+					return true; 
+			}
 	
 			// increment the bitmask to the next subset
 			int smallest = bitmask & -bitmask; 
