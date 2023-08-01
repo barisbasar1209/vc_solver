@@ -9,11 +9,20 @@
 bool check_vc(Graph& G, std::list<Vertex*>& S) {
 	// check for all edges if there is at least one vertex in the vertex cover S that covers it
 	// if one vertex covers the edge proceed with the next edge, otherwise if no vertex covers it S is not a vertex cover
+	bool covered = false; 
+	// check for all edges
 	for (Edge& e : G.E){
+		covered = false
+		// if there exists one vertex in the VC S that covers it
 		for (Vertex *v : S){
-			if (e.isEndpoint(v)) break; 
+			if (e.isEndpoint(v)){
+				// if that vertex is found mark the edge as covered and move to next edge
+				covered = true; 	
+				break; 
+			}
 		}
-		return false; 
+		// if there was no vertex covering that edge then return false
+		if (!covered) return false;
 	}
 	return true; 
 }
