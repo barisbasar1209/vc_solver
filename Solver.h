@@ -40,11 +40,18 @@ bool exp_solve(Graph G, int k){
 			}	
 		}	
 		if (check_vc(G,S)) {
-			std::cout<<"The vertex cover S of size "<<k<<" is consists of: "; 
+			std::cout<<"The vertex cover S of size "<<k<<" consists of: "; 
 			for (Vertex *v : S){
 				std::cout<<v->name<<" "; 	
 			}
 			return true; 	
+			std::cout<<'\n'; 
+		}
+		else {
+			std::cout<<"Not valid VC S of size "<<k<<" consists of: "; 	
+			for (Vertex *v : S){
+				std::cout<<v->name<<" "; 	
+			}
 			std::cout<<'\n'; 
 		}
 
