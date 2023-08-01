@@ -23,6 +23,7 @@ class Vertex{
 		}
 	}
 	// compare Vertex objects by their name, assuming that vertices are named uniquely
+	// pracitcally useless since vertices are compared by adress 
 	bool operator==(const Vertex& v) const{
 		return name == v.name; 	
 	}

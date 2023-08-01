@@ -87,13 +87,16 @@ int main(){
 
 	std::list<Vertex*> U(u.begin(), u.end()); std::list<Edge> F(f.begin(), f.end()); 
 	Graph H(U,F);
+	// H.print_graph();	
+	// graph is being constructed correctly, the solving seems to be the problem causing step
 	
 	for(int i=0;i<H.n;i++){
 		if (exp_solve(H,i)){
 			std::cout<<"found vc of size "<<i<<'\n'; 
 			break; 	
 		}	
-	}	
+	}
+	
 	return 0; 
 }
 
