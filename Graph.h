@@ -12,16 +12,15 @@ class Vertex{
 		Vertex(std::string v_name, const std::list<Vertex>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
 		//Vertex(const Vertex& v) name(v.name), degree(v.degree), neighbors(v.neighbors){}
 	// TODO: optional newline
-	void print_vertex(){
+	void print_vertex(void){
 		std::cout<<"name: "<<name<<'\n'<<"degree: "<<degree<<'\n'; 
 		if (!neighbors.empty()){
 			for (const Vertex& v : neighbors){
 				std::cout<<v.name<<", "; 
 			}	
-			//std::cout<<'\n'; 
+			std::cout<<'\n'; 
 		}
 	}
-	
 	// compare Vertex objects by their name, assuming that vertices are named uniquely
 	bool operator==(const Vertex& v) const{
 		return name == v.name; 	
@@ -43,8 +42,9 @@ class Edge{
 		return first == e.first && second == e.second; 	
 	}
 	// TODO: optional newline 
-	void print_edge(){
+	void print_edge(void){
 		std::cout<<"Edge: {"<<first.name<<","<<second.name<<"}"; 
+		std::cout<<'\n'; 
 	}
 	bool isEndpoint(Vertex& v){
 		return first == v || second == v; 	
@@ -94,14 +94,12 @@ class Graph{
 			u.degree--; 	
 		}
 	}
-	void print_graph(){
+	void print_graph(void){
 		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
 		for (Vertex& v : V) std::cout<<v.name<<", "; 
 		std::cout<<'\n'; 
-		for (Edge& e : E) {
-			e.print_edge(); 
-			std::cout<<'\n'; 	
-		}
+		for (Edge& e : E) std::cout<<"{"<<e.first.name<<","<<e.second.name<<"}, "; 
+		std::cout<<'\n'; 
 	}
 }; 
 
