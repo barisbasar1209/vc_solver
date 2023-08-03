@@ -70,10 +70,7 @@ class Graph{
 		// assuming that V is nonempty
 		Graph(std::list<Vertex*>& V_G, std::list<Edge>& E_G) : V(V_G) {
 			n = V_G.size(); 
-			// m = E_G.size(); 	
-			for (Edge& e : E_G){
-				add_edge(e); 	
-			}	
+			add_edge_set(E_G);
 		}
 
 		// adjacencymatrix constructor taking binarynumber array converting it to graph object
@@ -134,6 +131,10 @@ class Graph{
 			u->degree--; 	
 		}
 	}
+	void add_edge_set(std::list<Edge> E_G){
+		for (Edge& e : E_G) add_edge(e); 	
+	}
+
 	void print_graph(void){
 		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
 		if (!V.empty()){
