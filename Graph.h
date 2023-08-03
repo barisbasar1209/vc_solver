@@ -1,7 +1,9 @@
 #include<list>
+#include<vector>
 #include<string>
 #include<iostream>
 #include<algorithm>
+#include<cmath>
 
 // TODO: Test
 class Vertex{
@@ -12,7 +14,6 @@ class Vertex{
 		Vertex(std::string v_name) : name(v_name){degree=0;}   		
 		Vertex(std::string v_name, const std::list<Vertex*>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
 		//Vertex(const Vertex& v) name(v.name), degree(v.degree), neighbors(v.neighbors){}
-	// TODO: optional newline
 	void print_vertex(void){
 		std::cout<<"name: "<<name<<'\n'<<"degree: "<<degree<<'\n'; 
 		if (!neighbors.empty()){
@@ -43,7 +44,6 @@ class Edge{
 	bool operator==(const Edge& e) const{
 		return first == e.first && second == e.second; 	
 	}
-	// TODO: optional newline 
 	void print_edge(void){
 		std::cout<<"Edge: {"<<first->name<<","<<second->name<<"}"; 
 		std::cout<<'\n'; 
@@ -55,11 +55,13 @@ class Edge{
 }; 
 
 // TODO: Test
+// TODO: write constructor that constructs Graph from adjacencymatrix
+// TODO: considering a change from Edge set to Edge* set
 class Graph{
 	public: 
 		// attributes
-		int n; // number of vertices
-		int m; // number of edges
+		int n = -1; // number of vertices uninitialized
+		int m = -1; // number of edges unintialized 
 		std::list<Vertex*> V; 
 		std::list<Edge> E; 
 
@@ -73,6 +75,26 @@ class Graph{
 				add_edge(e); 	
 			}	
 		}
+
+		// adjacencymatrix constructor taking binarynumber array converting it to graph object
+		// usage of bitset because graph could have way more than 16 or 32 vertices
+		Graph(std::vector<int> matrix){
+			n = matrix.size(); // length of matrix implies number of vertices	
+			int bitmask = std::pow(2,n)-1; // all ones bitmask of length n
+
+			// initialize V
+			// TODO: I have to dynamically allocate the objects with new keyword on the heap because otherwise the compiler only allocates the address on the stack
+			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
+			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
+			std::string v_name = ""; 
+			for (int i=0; i<n; i++){
+				v_name = "v" + std::to_string(i); 
+				// dynamically allocated, must be deconstructed later on !
+				Vertex *v = new Vertex(v_name);
+				V.push_back(v); 
+			}
+		}
+		// TODO: Graph constructor that works with string and number of vertices
 	// assuming vertices are already inside of V
 	void add_edge(Edge& e){
 		auto iter = std::find(E.begin(), E.end(), e); 
@@ -113,9 +135,13 @@ class Graph{
 	}
 	void print_graph(void){
 		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
-		for (Vertex *v : V) std::cout<<v->name<<", "; 
+		if (!V.empty()){
+			for (Vertex *v : V) std::cout<<v->name<<" "; 
+		}
 		std::cout<<'\n'; 
-		for (Edge& e : E) std::cout<<"{"<<e.first->name<<","<<e.second->name<<"}, "; 
+		if (!E.empty()){
+			for (Edge& e : E) std::cout<<"{"<<e.first->name<<","<<e.second->name<<"}, "; 
+		}
 		std::cout<<'\n'; 
 	}
 }; 

@@ -64,6 +64,9 @@ int main(){
 		}	
 	}	
 */	
+
+/*
+	// Graph G2	
 	Vertex u1("u1"); 	
 	Vertex u2("u2"); 	
 	Vertex u3("u3"); 	
@@ -76,25 +79,21 @@ int main(){
 	Vertex u10("u10"); 	
 	Vertex u11("u11"); 	
 	Vertex u12("u12"); 	
-	// Graph H with 12 vertices, selfconstructed random graph
+	
 	std::vector<Vertex*> u = {&u1,&u2,&u3,&u4,&u5,&u6,&u7,&u8,&u9,&u10,&u11,&u12}; 
 	
 	Edge f1(&u1,&u2); Edge f2(&u2,&u3); Edge f3(&u2,&u12); Edge f4(&u2,&u11); Edge f5(&u2,&u8); Edge f6(&u2,&u7); Edge f7(&u2,&u6); Edge f8(&u2,&u4); Edge f9(&u3,&u4); 
-	Edge f10(&u4,&u11); Edge f11(&u4,&u7); Edge f12(&u4,&u5); Edge f13(&u4,&u6); Edge f14(&u6,&u7); Edge f15(&u6,&u8); Edge f16(&u7,&u8); Edge f17(&u7,&u11); Edge f18(&u8,&u11);
-	Edge f19(&u11,&u10); Edge f20(&u11,&u12); Edge f21(&u12,&u9);
+	Edge f10(&u4,&u11); Edge f11(&u4,&u7); Edge f12(&u4,&u5); Edge f13(&u4,&u6); Edge f14(&u6,&u7); Edge f15(&u6,&u8); Edge f16(&u7,&u8); Edge f17(&u7,&u11); 
+	Edge f18(&u8,&u11); Edge f19(&u11,&u10); Edge f20(&u11,&u12); Edge f21(&u12,&u9);
 
 	std::vector<Edge> f = {f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21}; 
 
 	std::list<Vertex*> U(u.begin(), u.end()); std::list<Edge> F(f.begin(), f.end()); 
 	Graph H(U,F);
-	// H.print_graph();	
-	// graph is being constructed correctly, the solving seems to be the problem causing step
-	
+	// 	
+
 	for(int i=0;i<H.n;i++){
-		if (exp_solve(H,i)){
-			std::cout<<"found vc of size "<<i<<'\n'; 
-			break; 	
-		}	
+		if (exp_solve(H,i)) break; 		
 	}
 	
 	// checking if check_vc would verify my example vc for the graph	
@@ -109,6 +108,11 @@ int main(){
 	set.push_front(&u1); 	
 	test = check_vc(H, set);
 	std::cout<<test<<'\n'; 
+*/
+	
+	std::vector<int>matrix = {0b0011,0b1011,0b0101,0b0010}; 
+	Graph G(matrix);
+	G.print_graph(); 
 	return 0; 
 }
 
