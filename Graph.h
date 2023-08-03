@@ -1,4 +1,5 @@
 #include<list>
+#include<bitset>
 #include<vector>
 #include<string>
 #include<iostream>
@@ -75,8 +76,8 @@ class Graph{
 
 		// adjacencymatrix constructor taking binarynumber array converting it to graph object
 		// usage of bitset because graph could have way more than 16 or 32 vertices
-		Graph(std::vector<int> matrix){
-			n = matrix.size(); // length of matrix implies number of vertices	
+		Graph(std::vector<int> adj_matrix){
+			n = adj_matrix.size(); // length of matrix implies number of vertices	
 			int bitmask = std::pow(2,n)-1; // all ones bitmask of length n
 
 			// initialize V
@@ -88,8 +89,19 @@ class Graph{
 				Vertex *v = new Vertex("v" + std::to_string(i));
 				V.push_back(v); 
 			}
-			for (int i=0; i<n; i++){
-					
+			// making bitset out of the number
+			// accessing each bit and if 1 creating and adding edge
+			// TODO: improve timecomplexity O(n^2) is not really desirable
+			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
+				for (int bit_idx=n; bit_idx>0; bit_idx--){
+					int adj_list = adj_matrix[n-bit_idx]; 
+					if(adj_list & (1<<bit_idx)){
+						// passing the pointers to the current adj_lists vertex (i) and the current neighbor (j)
+						// dynamic allocation, I must deconstruct each of these edges later on !!
+						Edge *e = new Edge(std::next(V.front()+(n-adj_list_idx)), std::next(V.front()+(n-bit_idx))); 	
+						add_edge(*e); 
+					}
+				}
 			}
 		}
 		// TODO: Graph constructor that works with string and number of vertices
