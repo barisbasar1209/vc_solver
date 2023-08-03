@@ -86,12 +86,13 @@ class Graph{
 			// TODO: I have to dynamically allocate the objects with new keyword on the heap because otherwise the compiler only allocates the address on the stack
 			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
 			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
-			std::string v_name = ""; 
 			for (int i=0; i<n; i++){
-				v_name = "v" + std::to_string(i); 
 				// dynamically allocated, must be deconstructed later on !
-				Vertex *v = new Vertex(v_name);
+				Vertex *v = new Vertex("v" + std::to_string(i));
 				V.push_back(v); 
+			}
+			for (int i=0; i<n; i++){
+					
 			}
 		}
 		// TODO: Graph constructor that works with string and number of vertices
