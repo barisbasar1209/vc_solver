@@ -27,6 +27,7 @@ bool check_vc(Graph& G, std::list<Vertex*>& S) {
 	return true; 
 }
 
+/*
 bool exp_solve(Graph G, int k){
 	if (k<=0) return false; 
 	std::vector<bool> bitmask(G.n,false); 
@@ -64,13 +65,13 @@ bool exp_solve(Graph G, int k){
 	} while (std::count(bitmask.begin(), bitmask.end(), true) == k); 
 	return false; 
 }
+*/
 
 // TODO: Test
 // solves the vertex cover problem for a Graph G with parameter k, the maximal size of a vertex cover S in exponential time, most naive approach
-bool exp_solve_trash(Graph G, int k){
-		// trivial cases
+bool exp_solve(Graph G, int k){
+		// trivial false case
 		if (k<=0) return false; 
-		//if (k>=(G.n/2)) return true; 
 	
 		// for all subsets with k elements
 		int bitmask = (1 << k) - 1; 
