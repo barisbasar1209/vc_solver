@@ -27,46 +27,6 @@ bool check_vc(Graph& G, std::list<Vertex*>& S) {
 	return true; 
 }
 
-/*
-bool exp_solve(Graph G, int k){
-	if (k<=0) return false; 
-	std::vector<bool> bitmask(G.n,false); 
-	std::fill(bitmask.begin(), bitmask.begin()+k, true); 
-
-	do{
-		std::list<Vertex*> S; 
-		for (int i=0; i<G.n; ++i){
-			if(bitmask[i]){
-				S.push_back(*(std::next(G.V.begin(), k))); 	
-			}	
-		}	
-		if (check_vc(G,S)) {
-			std::cout<<"The vertex cover S of size "<<k<<" consists of: "; 
-			for (Vertex *v : S){
-				std::cout<<v->name<<" "; 	
-			}
-			return true; 	
-			std::cout<<'\n'; 
-		}
-		else {
-			std::cout<<"Not valid VC S of size "<<k<<" consists of: "; 	
-			for (Vertex *v : S){
-				std::cout<<v->name<<" "; 	
-			}
-			std::cout<<'\n'; 
-		}
-
-		int t = G.n-1; 
-		while(t >= 0 && bitmask[t]) --t; 
-		if(t>=0){
-			bitmask[t] = true; 	
-			for(int i=t+1; i<G.n; ++i) bitmask[i] = false; 
-		}
-	} while (std::count(bitmask.begin(), bitmask.end(), true) == k); 
-	return false; 
-}
-*/
-
 // TODO: Test
 // solves the vertex cover problem for a Graph G with parameter k, the maximal size of a vertex cover S in exponential time, most naive approach
 bool exp_solve(Graph G, int k){
@@ -87,11 +47,11 @@ bool exp_solve(Graph G, int k){
 				++it; 
 			}
 			// checking whether or not S is a valid VC in G 
-			// if (check_vc(G, S)) return true; 
+			// decision type //  if (check_vc(G, S)) return true; 
 			if (check_vc(G, S)) {
 					std::cout<<"Vertex cover of size "<<k<<" is S : "; 
 					for (Vertex *v : S){
-						std::cout<<v->name<<","; 	
+						std::cout<<v->name<<" "; 	
 					}
 					std::cout<<'\n'; 
 					return true; 

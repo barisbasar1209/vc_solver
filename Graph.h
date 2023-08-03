@@ -84,14 +84,17 @@ class Graph{
 			// TODO: I have to dynamically allocate the objects with new keyword on the heap because otherwise the compiler only allocates the address on the stack
 			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
 			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
+			std::string v_name = ""; 
 			for (int i=0; i<n; i++){
 				// dynamically allocated, must be deconstructed later on !
-				Vertex *v = new Vertex("v" + std::to_string(i));
+				v_name = "v" + std::to_string(i);
+				Vertex *v = new Vertex(v_name);
 				V.push_back(v); 
 			}
 			// making bitset out of the number
 			// accessing each bit and if 1 creating and adding edge
 			// TODO: improve timecomplexity O(n^2) is not really desirable
+			/*
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
 				int adj_list = adj_matrix[n-adj_list_idx]; 
 				for (int bit_idx=n; bit_idx>0; bit_idx--){
@@ -102,7 +105,7 @@ class Graph{
 						add_edge(*e); 
 					}
 				}
-			}
+			}*/
 		}
 		// TODO: Graph constructor that works with string and number of vertices
 	// assuming vertices are already inside of V
