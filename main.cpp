@@ -97,6 +97,18 @@ int main(){
 		}	
 	}
 	
+	// checking if check_vc would verify my example vc for the graph	
+	// true
+	std::vector<Vertex*> s = {&u2,&u4,&u7,&u8,&u11,&u12};	
+	std::list<Vertex*> set(s.begin(), s.end());
+	bool test = check_vc(H, set); 	
+	std::cout<<test<<'\n';
+
+	// false 
+	set.pop_front(); 
+	set.push_front(&u1); 	
+	test = check_vc(H, set);
+	std::cout<<test<<'\n'; 
 	return 0; 
 }
 
