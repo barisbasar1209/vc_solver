@@ -93,12 +93,12 @@ class Graph{
 			// accessing each bit and if 1 creating and adding edge
 			// TODO: improve timecomplexity O(n^2) is not really desirable
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
+				int adj_list = adj_matrix[n-adj_list_idx]; 
 				for (int bit_idx=n; bit_idx>0; bit_idx--){
-					int adj_list = adj_matrix[n-bit_idx]; 
 					if(adj_list & (1<<bit_idx)){
 						// passing the pointers to the current adj_lists vertex (i) and the current neighbor (j)
 						// dynamic allocation, I must deconstruct each of these edges later on !!
-						Edge *e = new Edge(std::next(V.front()+(n-adj_list_idx)), std::next(V.front()+(n-bit_idx))); 	
+						Edge *e = new Edge((V.front()+(n-adj_list_idx)), (V.front()+(n-bit_idx))); 	
 						add_edge(*e); 
 					}
 				}
