@@ -65,9 +65,9 @@ int main(){
 	}	
 */	
 
-/*
+
 	// Graph G2	
-	Vertex u1("u1"); 	
+	/*Vertex u1("u1"); 	
 	Vertex u2("u2"); 	
 	Vertex u3("u3"); 	
 	Vertex u4("u4"); 	
@@ -91,7 +91,7 @@ int main(){
 	std::list<Vertex*> U(u.begin(), u.end()); std::list<Edge> F(f.begin(), f.end()); 
 	Graph H(U,F);
 	// 	
-
+	
 	for(int i=0;i<H.n;i++){
 		if (exp_solve(H,i)) break; 		
 	}
@@ -108,7 +108,7 @@ int main(){
 	set.push_front(&u1); 	
 	test = check_vc(H, set);
 	std::cout<<test<<'\n'; 
-*/
+	*/
 	
 	std::vector<int>matrix = {0b0011,0b1011,0b0101,0b0010}; 
 	Graph G(matrix);
