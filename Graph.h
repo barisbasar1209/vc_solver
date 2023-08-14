@@ -24,6 +24,7 @@ class Vertex{
 			std::cout<<'\n'; 
 		}
 	}
+	// TODO: delete for it is obsolete due to the transition to pointers
 	// compare Vertex objects by their name, assuming that vertices are named uniquely
 	// pracitcally useless since vertices are compared by adress 
 	/*bool operator==(const Vertex& v) const{
