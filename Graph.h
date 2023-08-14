@@ -85,15 +85,14 @@ class Graph{
 			}
 			// accessing each bit and if 1 creating and adding edge
 			// TODO: improve timecomplexity O(n^2) is not really desirable
-				
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
 				int adj_list = adj_matrix[n-adj_list_idx]; 
-				for (int bit_idx=n; bit_idx>0; bit_idx--){
+				for (int bit_idx=n-1; bit_idx>=0; bit_idx--){
 					if(adj_list & (1<<bit_idx)){
 						auto iter1 = V.begin(); 
 						std::advance(iter1, n-adj_list_idx);
 						auto iter2 = V.begin(); 
-						std::advance(iter2, n-bit_idx); 
+						std::advance(iter2, n-bit_idx-1); 
 						Vertex *v1 = *iter1; 
 						Vertex *v2 = *iter2; 
 						Edge *e = new Edge(v1,v2); 
