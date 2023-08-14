@@ -86,16 +86,15 @@ class Graph{
 			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
 			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
 			// std::string v_name = ""; 
-			std::string dynamic_name = ""; 
+			// std::string dynamic_name = ""; 
 			for (int i=0; i<n; i++){
-				
+				std::string *dynamic_name = new std::string("v"+std::to_string(i)); 	
 				// dynamically allocated, must be deconstructed later on !
-				dynamic_name = "v" + std::to_string(i); 
-				std::string *v_name = &dynamic_name; 
+				// dynamic_name = "v" + std::to_string(i); 
+				std::string *v_name = dynamic_name; 
 				Vertex *v = new Vertex(v_name);
 				V.push_back(v); 
 			}
-			// making bitset out of the number
 			// accessing each bit and if 1 creating and adding edge
 			// TODO: improve timecomplexity O(n^2) is not really desirable
 				
