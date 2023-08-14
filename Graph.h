@@ -39,7 +39,7 @@ class Edge{
 
 	// edges are identical iff both endpoint are identical
 	bool operator==(const Edge& e) const{
-		return first == e.first && second == e.second; 	
+		return (first==e.first && second==e.second) || (first==e.second && second==e.first); 	
 	}
 	void print_edge(void){
 		std::cout<<"Edge: {"<<(*first->name)<<","<<(*second->name)<<"}"; 
@@ -151,7 +151,7 @@ class Graph{
 		}
 		std::cout<<'\n'; 
 		if (!E.empty()){
-			for (Edge& e : E) std::cout<<"{"<<(*e.first->name)<<","<<(*e.second->name)<<"}, "; 
+			for (Edge& e : E) std::cout<<"{"<<(*e.first->name)<<" "<<(*e.second->name)<<"} "; 
 		}
 		std::cout<<'\n'; 
 	}
