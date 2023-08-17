@@ -41,7 +41,7 @@ class Edge{
 		std::cout<<"Edge: {"<<first->name<<","<<second->name<<"}"; 
 		std::cout<<'\n'; 
 	}
-	bool isEndpoint(Vertex *v){
+	bool isIncident(Vertex *v){
 		return first == v || second == v; 	
 	}
 	
@@ -49,24 +49,26 @@ class Edge{
 
 class Graph{
 	public: 
+		// attributes
 		int n = -1; 
 		int m = -1; 
 		std::list<Vertex*> V; 
 		std::list<Edge> E; 
 
+		// constructors
 		Graph(std::list<Vertex*>& V_G, std::list<Edge>& E_G) : V(V_G) {
 			n = V_G.size(); 
 			add_edge_set(E_G);
 		}
-
 		Graph(std::vector<int> adj_matrix){
 			m = 0; 
 			n = adj_matrix.size(); 
-
+			// init V
 			for (int i=0; i<n; i++){
 				Vertex *v = new Vertex(i); // dynamic allocation with i as the name
 				V.push_back(v); 
 			}
+			// init E
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
 				int adj_list = adj_matrix[n-adj_list_idx]; 
 				for (int bit_idx=n-1; bit_idx>=0; bit_idx--){
@@ -83,6 +85,7 @@ class Graph{
 				}
 			}
 		}
+	// methods 
 	void add_edge(Edge& e){
 		auto iter = std::find(E.begin(), E.end(), e); 
 		if (iter == E.end()){
@@ -97,7 +100,6 @@ class Graph{
 	void delete_edge(Edge& e){
 		Vertex *v1(e.first); 
 		Vertex *v2(e.second); 
-
 		v1->degree--; 
 		v2->degree--; 
 		v1->neighbors.remove(v2); 
@@ -108,7 +110,7 @@ class Graph{
 	void delete_vertex(Vertex *v){
 		V.remove(v); 
 		for (Edge& e : E){
-			if (e.isEndpoint(v)){
+			if (e.isIncident(v)){
 				delete_edge(e); 	
 			}	
 		}
