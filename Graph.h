@@ -92,12 +92,12 @@ class Graph{
 		}
 		// deconstructor 
 		~Graph(){
-			for (Vertex v : V){
+			for (Vertex *v : V){
 				if (v->is_dynamic){
 					delete v; 	
 				}	
 			}	
-		
+		}	
 		// methods 
 		void add_edge(Edge& e){
 			auto iter = std::find(E.begin(), E.end(), e); 

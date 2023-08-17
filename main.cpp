@@ -120,6 +120,7 @@ int main(){
 	std::vector<int>matrix1 = {0b011111,0b101111,0b110111,0b111011,0b111101,0b111110}; 
 	Graph H(matrix1); 
 	H.print_graph(); 
+
 	return 0; 
 }
 
