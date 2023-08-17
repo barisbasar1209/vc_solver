@@ -109,10 +109,17 @@ int main(){
 	test = check_vc(H, set);
 	std::cout<<test<<'\n'; 
 	*/
-	
-	std::vector<int>matrix = {0b0011,0b1011,0b0101,0b0010}; 
-	Graph G(matrix);
+		
+	// stargraph with v3 as the center
+	std::vector<int>matrix0 = {0b0001,0b0001,0b0001,0b1110}; 
+	// expected : G = ({v0,v1,v2,v3},{{v0,v3},{v1,v3},{v2,v3}})
+	Graph G(matrix0);
 	G.print_graph(); 
+	
+	// K6
+	std::vector<int>matrix1 = {0b011111,0b101111,0b110111,0b111011,0b111101,0b111110}; 
+	Graph H(matrix1); 
+	H.print_graph(); 
 	return 0; 
 }
 

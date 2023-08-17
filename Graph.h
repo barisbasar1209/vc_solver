@@ -60,8 +60,6 @@ class Graph{
 		std::list<Vertex*> V; 
 		std::list<Edge> E; 
 
-		// constructors
-
 		// assuming that V is nonempty
 		Graph(std::list<Vertex*>& V_G, std::list<Edge>& E_G) : V(V_G) {
 			n = V_G.size(); 
@@ -72,18 +70,16 @@ class Graph{
 		// usage of bitset because graph could have way more than 16 or 32 vertices
 		Graph(std::vector<int> adj_matrix){
 			n = adj_matrix.size(); // length of matrix implies number of vertices	
-			//int bitmask = std::pow(2,n)-1; // all ones bitmask of length n
 
 			// TODO: I have to dynamically allocate the objects with new keyword on the heap because otherwise the compiler only allocates the address on the stack
 			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
 			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
 			for (int i=0; i<n; i++){
-				std::string *dynamic_name = new std::string("v"+std::to_string(i)); 	
+				std::string *dynamic_name = new std::string("v"+std::to_string(i)); // dynamic allocation
 				std::string *v_name = dynamic_name; 
-				Vertex *v = new Vertex(v_name);
+				Vertex *v = new Vertex(v_name); // dynamic allocation
 				V.push_back(v); 
 			}
-			// accessing each bit and if 1 creating and adding edge
 			// TODO: improve timecomplexity O(n^2) is not really desirable
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
 				int adj_list = adj_matrix[n-adj_list_idx]; 
@@ -95,7 +91,7 @@ class Graph{
 						std::advance(iter2, n-bit_idx-1); 
 						Vertex *v1 = *iter1; 
 						Vertex *v2 = *iter2; 
-						Edge *e = new Edge(v1,v2); 
+						Edge *e = new Edge(v1,v2); // dynamic allocation
 						add_edge(*e); 
 					}
 				}
