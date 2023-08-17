@@ -84,8 +84,8 @@ class Graph{
 						std::advance(iter2, n-bit_idx-1); 
 						Vertex *v1 = *iter1; 
 						Vertex *v2 = *iter2; 
-						Edge e(v1,v2); 
-						add_edge(e); 
+						Edge *e = new Edge(v1,v2); 
+						add_edge(*e); 
 					}
 				}
 			}
@@ -121,13 +121,25 @@ class Graph{
 		}
 		void delete_vertex(Vertex *v){
 			V.remove(v); 
-			for (Edge& e : E){
-				if (e.is_incident(v)) delete_edge(e);	
+			/*for (Edge& e : E){
+				if (e.is_incident(v)) {
+					delete_edge(e);	
+				}
+			}*/
+			for (auto iter = E.begin(); iter != E.end(); ){
+				Edge *e = *iter;  
+				if (*e.is_incident(v)){
+					delete_edge(e); 	
+				}	
+				else ++it; 
 			}
+
 			for (Vertex *u : v->neighbors){
 				u->neighbors.remove(v); 
 				u->degree--; 	
 			}
+		
+			if (v->is_dynamic) delete v; 
 		}
 		void add_edge_set(std::list<Edge> E_G){
 			for (Edge& e : E_G) add_edge(e); 	
