@@ -47,7 +47,7 @@ class Edge{
 			std::cout<<"Edge: {"<<first->name<<","<<second->name<<"}"; 
 			std::cout<<'\n'; 
 		}
-		bool isIncident(Vertex *v){
+		bool is_incident(Vertex *v){
 			return first == v || second == v; 	
 		}
 }; 
@@ -90,6 +90,14 @@ class Graph{
 				}
 			}
 		}
+		// deconstructor 
+		~Graph(){
+			for (Vertex v : V){
+				if (v->is_dynamic){
+					delete v; 	
+				}	
+			}	
+		
 		// methods 
 		void add_edge(Edge& e){
 			auto iter = std::find(E.begin(), E.end(), e); 
@@ -114,7 +122,7 @@ class Graph{
 		void delete_vertex(Vertex *v){
 			V.remove(v); 
 			for (Edge& e : E){
-				if (e.isIncident(v)) delete_edge(e);	
+				if (e.is_incident(v)) delete_edge(e);	
 			}
 			for (Vertex *u : v->neighbors){
 				u->neighbors.remove(v); 
