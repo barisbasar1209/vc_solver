@@ -9,40 +9,36 @@
 // TODO: Test
 class Vertex{
 	public:
-		std::string *name=0x0; 
+		int name=-1; 
 		int degree=-1; 
 		std::list<Vertex*> neighbors; 
-		Vertex(std::string *v_name) : name(v_name){degree=0;}   		
-		Vertex(std::string *v_name, const std::list<Vertex*>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
+		Vertex(int v_name) : name(v_name){degree=0;}   		
+		Vertex(int v_name, const std::list<Vertex*>& v_neighbors) : name(v_name), neighbors(v_neighbors){degree = neighbors.size();}
 
 	void print_vertex(void){
-		std::cout<<"name: "<<(*name)<<'\n'<<"degree: "<<degree<<'\n'; 
+		std::cout<<"name: "<<name<<'\n'<<"degree: "<<degree<<'\n'; 
 		if (!neighbors.empty()){
 			for (Vertex *v : neighbors){
-				std::cout<<(*v->name)<<", "; 
+				std::cout<<v->name<<", "; 
 			}	
 			std::cout<<'\n'; 
 		}
 	}
 }; 
 
-// TODO: Test
 class Edge{
 	public: 
-		// attributes
 		Vertex *first; 
 		Vertex *second; 
 		
-		// constructors
 		Edge(Vertex *v1, Vertex *v2) : first(v1), second(v2){}
 		Edge(const Edge& e) : first(e.first), second(e.second){}
 
-	// edges are identical iff both endpoint are identical
 	bool operator==(const Edge& e) const{
 		return (first==e.first && second==e.second) || (first==e.second && second==e.first); 	
 	}
 	void print_edge(void){
-		std::cout<<"Edge: {"<<(*first->name)<<","<<(*second->name)<<"}"; 
+		std::cout<<"Edge: {"<<first->name<<","<<second->name<<"}"; 
 		std::cout<<'\n'; 
 	}
 	bool isEndpoint(Vertex *v){
@@ -51,36 +47,26 @@ class Edge{
 	
 }; 
 
-// TODO: Test
 class Graph{
 	public: 
-		// attributes
-		int n = -1; // number of vertices uninitialized
-		int m = -1; // number of edges unintialized 
+		int n = -1; 
+		int m = -1; 
 		std::list<Vertex*> V; 
 		std::list<Edge> E; 
 
-		// assuming that V is nonempty
 		Graph(std::list<Vertex*>& V_G, std::list<Edge>& E_G) : V(V_G) {
 			n = V_G.size(); 
 			add_edge_set(E_G);
 		}
 
-		// adjacencymatrix constructor taking binarynumber array converting it to graph object
-		// usage of bitset because graph could have way more than 16 or 32 vertices
 		Graph(std::vector<int> adj_matrix){
-			n = adj_matrix.size(); // length of matrix implies number of vertices	
+			m = 0; 
+			n = adj_matrix.size(); 
 
-			// TODO: I have to dynamically allocate the objects with new keyword on the heap because otherwise the compiler only allocates the address on the stack
-			// and with each new loop the adress can and most likely will be reused, causing a segfault. Now by using the heap memory and dynamically allocating
-			// the object I must delete/deconstruct the object when I dont need it anymore, otherwise I am leaking memory 
 			for (int i=0; i<n; i++){
-				std::string *dynamic_name = new std::string("v"+std::to_string(i)); // dynamic allocation
-				std::string *v_name = dynamic_name; 
-				Vertex *v = new Vertex(v_name); // dynamic allocation
+				Vertex *v = new Vertex(i); // dynamic allocation with i as the name
 				V.push_back(v); 
 			}
-			// TODO: improve timecomplexity O(n^2) is not really desirable
 			for (int adj_list_idx=n; adj_list_idx>0; adj_list_idx--){
 				int adj_list = adj_matrix[n-adj_list_idx]; 
 				for (int bit_idx=n-1; bit_idx>=0; bit_idx--){
@@ -91,14 +77,12 @@ class Graph{
 						std::advance(iter2, n-bit_idx-1); 
 						Vertex *v1 = *iter1; 
 						Vertex *v2 = *iter2; 
-						Edge *e = new Edge(v1,v2); // dynamic allocation
-						add_edge(*e); 
+						Edge e(v1,v2); 
+						add_edge(e); 
 					}
 				}
 			}
 		}
-		// TODO: Graph constructor that works with string and number of vertices
-	// assuming vertices are already inside of V
 	void add_edge(Edge& e){
 		auto iter = std::find(E.begin(), E.end(), e); 
 		if (iter == E.end()){
@@ -122,15 +106,12 @@ class Graph{
 	}
 
 	void delete_vertex(Vertex *v){
-		// delete vertex itsself
 		V.remove(v); 
-		// delete all incident edges
 		for (Edge& e : E){
 			if (e.isEndpoint(v)){
 				delete_edge(e); 	
 			}	
 		}
-		// adjust neighborhoods and degrees for adjacent vertices
 		for (Vertex *u : v->neighbors){
 			u->neighbors.remove(v); 
 			u->degree--; 	
@@ -143,11 +124,11 @@ class Graph{
 	void print_graph(void){
 		std::cout<<"n = "<<n<<'\n'<<"m = "<<m<<'\n'; 
 		if (!V.empty()){
-			for (Vertex *v : V) std::cout<<(*v->name)<<" "; 
+			for (Vertex *v : V) std::cout<<v->name<<" "; 
 		}
 		std::cout<<'\n'; 
 		if (!E.empty()){
-			for (Edge& e : E) std::cout<<"{"<<(*e.first->name)<<" "<<(*e.second->name)<<"} "; 
+			for (Edge& e : E) std::cout<<"{"<<e.first->name<<" "<<e.second->name<<"} "; 
 		}
 		std::cout<<'\n'; 
 	}
