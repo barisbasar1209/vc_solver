@@ -15,7 +15,7 @@ bool check_vc(Graph& G, std::list<Vertex*>& S) {
 		covered = false; 
 		// if there exists one vertex in the VC S that covers it
 		for (Vertex *v : S){
-			if (e.isEndpoint(v)){
+			if (e.isIncident(v)){
 				// if that vertex is found mark the edge as covered and move to next edge
 				covered = true; 	
 				break; 
