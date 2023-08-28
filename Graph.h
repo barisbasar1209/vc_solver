@@ -122,15 +122,16 @@ class Graph{
 		}
 		void delete_vertex(Vertex *v){
 			V.remove(v); 
-			/*for (Edge& e : E){
-				if (e.is_incident(v)) {
-					delete_edge(e);	
-				}
-			}*/
 			for (auto iter = E.begin(); iter != E.end(); ){
-				Edge *e = &(*iter);  
-				if (e->is_incident(v)){
-					delete_edge(*e); 	
+				Edge& e = *iter; 
+				if (e.is_incident(v)){
+					Vertex *v1(e.first); 
+					Vertex *v2(e.second); 
+					v1->degree--; 
+					v2->degree--; 
+					v1->neighbors.remove(v2); 
+					v2->neighbors.remove(v1); 
+					iter = E.erase(iter); 
 				}	
 				else ++iter; 
 			}
