@@ -1,5 +1,4 @@
 #include<list>
-#include<bitset>
 #include<vector>
 #include<string>
 #include<iostream>
@@ -65,7 +64,7 @@ class Graph{
 			n = V_G.size(); 
 			add_edge_set(E_G);
 		}
-		Graph(std::vector<int> adj_matrix){
+		Graph(std::vector<int>& adj_matrix){
 			m = 0; 
 			n = adj_matrix.size(); 
 			// init V
@@ -94,7 +93,7 @@ class Graph{
 		~Graph(){
 			for (Vertex *v : V){
 				if (v->is_dynamic){
-					delete v; 	
+					delete v; 
 					v=0x0; 
 				}	
 			}	
@@ -143,7 +142,7 @@ class Graph{
 		
 			if (v->is_dynamic) delete v; 
 		}
-		void add_edge_set(std::list<Edge> E_G){
+		void add_edge_set(std::list<Edge>& E_G){
 			for (Edge& e : E_G) add_edge(e); 	
 		}
 
