@@ -90,11 +90,12 @@ class Graph{
 				}
 			}
 		}
-		// deconstructor 
+		// destructor 
 		~Graph(){
 			for (Vertex *v : V){
 				if (v->is_dynamic){
 					delete v; 	
+					v=0x0; 
 				}	
 			}	
 		}	
@@ -127,11 +128,11 @@ class Graph{
 				}
 			}*/
 			for (auto iter = E.begin(); iter != E.end(); ){
-				Edge *e = *iter;  
-				if (*e.is_incident(v)){
-					delete_edge(e); 	
+				Edge *e = &(*iter);  
+				if (e->is_incident(v)){
+					delete_edge(*e); 	
 				}	
-				else ++it; 
+				else ++iter; 
 			}
 
 			for (Vertex *u : v->neighbors){
